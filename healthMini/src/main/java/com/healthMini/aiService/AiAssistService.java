@@ -254,14 +254,21 @@ public class AiAssistService {
 
             // Prompt preparation
             String escapedPrompt = preparePrompt(healthData).replace("\"", "\\\"");
-            String customizedPrompt = "You are a knowledgeable and empathetic AI health assistant.\n\n"
-                    + "Analyze the user's health data and provide insights in the following format:\n\n"
-                    + "1. **Health Overview**: Summarize the user's health condition.\n"
-                    + "2. **Risk Assessment**: Assess potential health risks.\n"
-                    + "3. **Recommendations**: Suggest lifestyle changes or treatments.\n"
-                    + "4. **Precautions**: Highlight key precautions to take.\n\n"
-                    + "User's health data: " + escapedPrompt;
+            
+            String userLocation = healthData.getLocation(); //location is stored here
 
+            String customizedPrompt = "You are a knowledgeable and empathetic AI health assistant.\n\n"
+            	    + "Analyze the user's health data and provide personalized insights in the following format:\n\n"
+            	    + "1. **Health Overview**: Summarize the user's overall health condition based on vital data and habits.\n"
+            	    + "2. **Risk Assessment**: Assess potential health risks (e.g., diabetes, obesity, hypertension) based on BMI, glucose, lifestyle, and family history.\n"
+            	    + "3. **Goal Progress**: Analyze if the user is meeting daily goals (steps, water, sleep) and provide encouragement or tips.\n"
+            	    + "4. **Behavioral Insights**: Identify patterns or concerns from habits like sleep duration, hydration, and exercise.\n"
+            	    + "5. **Lifestyle Recommendations**: Suggest changes based on user's habits (e.g., improve diet, increase physical activity, reduce stress).\n"
+            	    +"6. **Localized Tips**: Offer advice based on the user's region (Location: " + userLocation + ").\n"
+            	    + "7. **Lifespan Estimation** *(predictive)*: Based on the user's current age, lifestyle habits (exercise frequency, sleep, hydration, smoking/alcohol), family medical history, stress level, and regional factors, provide an estimated remaining lifespan (in years) and explain the reasoning behind the prediction. Be informative and specific, even if the estimate is not medically precise.\n\n"
+            	    + "Note: This lifespan estimation is a general, AI-based prediction and should not replace medical advice. Real health outcomes may vary based on genetic and external factors.\n\n"
+            	    + "User's health data: " + escapedPrompt;             
+   
             String requestBody = "{ \"contents\": [ { \"parts\": [ { \"text\": \"" + customizedPrompt + "\" } ] } ] }";
 
             HttpHeaders headers = new HttpHeaders();
@@ -309,5 +316,5 @@ public class AiAssistService {
         );
     }	
 
-}
+} 
 

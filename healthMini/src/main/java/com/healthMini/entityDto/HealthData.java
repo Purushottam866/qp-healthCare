@@ -24,8 +24,8 @@ public class HealthData {
     private HealthCareUser user;
 
     private int age;
-    private double height;
-    private double weight;
+    private double height; // in cm
+    private double weight; // in kg
     private String exerciseFrequency;
     private boolean familyHistory;
     private String diet;
@@ -33,16 +33,30 @@ public class HealthData {
     private boolean highBloodPressure;
     private String stressLevel;
 
+    // New lifestyle & daily tracking attributes
+    private int dailySteps;
+    private double waterIntake;
+    private double sleepHours;
+    private boolean smoking;
+    private boolean alcohol;
+    private String location;
+
+    // User goals
+    private int goalStepsPerDay;
+    private double goalWaterPerDayL;
+    private double goalSleepPerDayH;
+
+    // Prediction output
     @Column(columnDefinition = "TEXT")
     private String predictionResult;
-    private double bmi;
-    private double glucoseLevel;
+ 
+    private double bmi; 
+    private double glucoseLevel; 
 
-    // Getters and setters
-
+    // Utility method to calculate BMI
     public void calculateAndSetBMI() {
         if (height > 0 && weight > 0) {
-            double heightInMeters = height / 100.0; // Convert cm to meters
+            double heightInMeters = height / 100.0;
             this.bmi = Math.round((weight / (heightInMeters * heightInMeters)) * 100.0) / 100.0;
         }
     }
@@ -51,4 +65,5 @@ public class HealthData {
         this.glucoseLevel = glucoseLevel;
     }
 }
+ 
 	

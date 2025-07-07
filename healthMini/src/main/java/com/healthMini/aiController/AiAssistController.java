@@ -67,7 +67,7 @@ public class AiAssistController {
             errorResponse.setCode(HttpStatus.UNAUTHORIZED.value());
             return new ResponseEntity<>(errorResponse, HttpStatus.UNAUTHORIZED);
         } catch (Exception e) {
-            // Handle unexpected errors
+              // Handle unexpected errors
             ResponseStructure<String> errorResponse = new ResponseStructure<>();
             errorResponse.setStatus("error");
             errorResponse.setMessage("An unexpected error occurred: " + e.getMessage());
@@ -77,7 +77,7 @@ public class AiAssistController {
     }
     
     
-    @PostMapping("/predict")
+    @PostMapping("/predict") 
     public ResponseEntity<ResponseStructure<String>> predictHealthRisk(@RequestBody HealthData healthData) {
         try {
             // Extract and validate JWT token
@@ -121,6 +121,7 @@ public class AiAssistController {
             ResponseStructure<String> response = new ResponseStructure<>();
             response.setStatus("success");
             response.setMessage("Prediction generated and saved successfully.");
+            response.setCode(200);
             response.setData(predictionResult);
             return ResponseEntity.ok(response);
 
